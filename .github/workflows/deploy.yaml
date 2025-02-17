@@ -47,9 +47,8 @@ jobs:
       - name: move Thumbnail for Page 1
         run: mv ac-cv-thumbnail-p1.jpg github_artifacts
       - name: Generate Thumbnail for Page 2
-        uses: jruipinto/ImageMagick-action@v1
-        with:
-          command: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[1] ac-cv-thumbnail-p2.jpg
+        #uses: jruipinto/ImageMagick-action@v1
+        run: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[1] ac-cv-thumbnail-p2.jpg
       - name: move Thumbnail for Page 2
         run: mv ac-cv-thumbnail-p2.jpg github_artifacts
       - name: Upload pdf as artifact
