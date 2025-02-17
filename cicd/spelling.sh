@@ -24,7 +24,7 @@ if [ -z "$dic_path" ]; then
 fi
 
 # Some words need to be appended by hand
-echo Ph >> $dic_path
+sudo echo Ph >> $dic_path
 
 # Loop through each .tex file
 for file in $tex_files; do
