@@ -16,15 +16,15 @@ fi
 errors_found=0
 
 # Get the dict paths
-# dic_path=$(hunspell -D 2>&1 | grep -o '/.*GB\.dic' | head -n 1)
-# echo $dic_path
-# if [ -z "$dic_path" ]; then
-#     echo "No dictionary file found!"
-#     exit 1
-# fi
+dic_path=$(hunspell -d en_GB -D 2>&1 | grep -o '/.*GB\.dic' | head -n 1)
+echo $dic_path
+if [ -z "$dic_path" ]; then
+    echo "No dictionary file found!"
+    exit 1
+fi
 
-# # Some words need to be appended by hand
-# echo Ph >> $dic_path
+# Some words need to be appended by hand
+echo Ph >> $dic_path
 
 # Append the word
 echo $word >> $dic_path
