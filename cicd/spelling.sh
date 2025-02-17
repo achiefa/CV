@@ -16,15 +16,15 @@ fi
 errors_found=0
 
 # Get the dict paths
-dic_path=$(hunspell -d en_GB -D 2>&1 | grep -o '/.*GB\.dic' | head -n 1)
-echo $dic_path
-if [ -z "$dic_path" ]; then
-    echo "No dictionary file found!"
-    exit 1
-fi
+# dic_path=$(hunspell -d en_GB -D 2>&1 | grep -o '/.*GB\.dic' | head -n 1)
+# echo $dic_path
+# if [ -z "$dic_path" ]; then
+#     echo "No dictionary file found!"
+#     exit 1
+# fi
 
-# Some words need to be appended by hand
-echo Ph >> $dic_path
+# # Some words need to be appended by hand
+# echo Ph >> $dic_path
 
 # Loop through each .tex file
 for file in $tex_files; do
@@ -35,7 +35,10 @@ for file in $tex_files; do
   # -a: Morphological analysis
   # -l: List only misspelled words
   # -d dict/words: Adds custom dictionary located in dict/words
-  hunspellOutput="$(hunspell -D -d en_GB -t -a -l -p dict/words $file)"
+  hunspellOutput="$(hunspell -d en_GB -t -a -l -p dict/words $file)"
+  hunspellOutput=$(echo "$hunspellOutput" | grep -v "\bPh\b")
+  echo ${hunspellOutput}
+
   if [ "${hunspellOutput}" != "" ]; then
     # Spelling errors
     echo ""
@@ -45,7 +48,9 @@ for file in $tex_files; do
     echo "======================================================"
     echo ""
     #hunspell -d en_GB -t -a -l -p dict/words $file
-    echo "$hunspellOutput" | sort | uniq # | tr ' ' '\n' 
+
+    # Check unwanted words
+    echo "$hunspellOutput" | tr ' ' '\n' | sort | uniq
     errors_found=1
   else
     echo "Spelling looks good to me in $file"
