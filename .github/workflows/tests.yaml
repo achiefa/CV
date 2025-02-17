@@ -11,8 +11,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Install hunspell
         run: sudo apt-get -y install hunspell hunspell-en-gb
-      - name: Add permission
-        run: git update-index --chmod=+x ./cicd/spelling.sh
       - name: Spell Check
         shell: bash --noprofile --norc -eo pipefail -o nounset {0}
         run: bash cicd/spelling.sh
