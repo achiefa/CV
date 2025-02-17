@@ -23,7 +23,7 @@ if [ -z "$dic_path" ]; then
 fi
 
 # Some words need to be appended by hand
-echo "Ph" >> $dic_path
+echo Ph >> $dic_path
 
 # Append the word
 echo $word >> $dic_path
