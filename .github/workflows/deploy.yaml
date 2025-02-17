@@ -34,23 +34,23 @@ jobs:
           root_file: main.tex
       - name: move pdf
         run: mv main.pdf github_artifacts
-      - name: Install ghostscript
-        run: sudo apt install ghostscript -y
-      - name: Workaround ghostscript vunerability protection
-        # A vunerabillty that existed in ghostscript no longer exists.  This is to work around the temporary protection
-        # that was put in place
-        # https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion
-        run: sudo sed -i 's/rights="none" pattern="PDF"/rights="read | write" pattern="PDF"/' /etc/ImageMagick-6/policy.xml
-      - name: Generate Thumbnail for Page 1
-        #uses: jruipinto/ImageMagick-action@v1
-        run: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[0] ac-cv-thumbnail-p1.jpg
-      - name: move Thumbnail for Page 1
-        run: mv ac-cv-thumbnail-p1.jpg github_artifacts
-      - name: Generate Thumbnail for Page 2
-        #uses: jruipinto/ImageMagick-action@v1
-        run: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[1] ac-cv-thumbnail-p2.jpg
-      - name: move Thumbnail for Page 2
-        run: mv ac-cv-thumbnail-p2.jpg github_artifacts
+      # - name: Install ghostscript
+      #   run: sudo apt install ghostscript -y
+      # - name: Workaround ghostscript vunerability protection
+      #   # A vunerabillty that existed in ghostscript no longer exists.  This is to work around the temporary protection
+      #   # that was put in place
+      #   # https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion
+      #   run: sudo sed -i 's/rights="none" pattern="PDF"/rights="read | write" pattern="PDF"/' /etc/ImageMagick-6/policy.xml
+      # - name: Generate Thumbnail for Page 1
+      #   #uses: jruipinto/ImageMagick-action@v1
+      #   run: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[0] ac-cv-thumbnail-p1.jpg
+      # - name: move Thumbnail for Page 1
+      #   run: mv ac-cv-thumbnail-p1.jpg github_artifacts
+      # - name: Generate Thumbnail for Page 2
+      #   #uses: jruipinto/ImageMagick-action@v1
+      #   run: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[1] ac-cv-thumbnail-p2.jpg
+      # - name: move Thumbnail for Page 2
+      #   run: mv ac-cv-thumbnail-p2.jpg github_artifacts
       - name: Upload pdf as artifact
         uses: actions/upload-artifact@v4
         with:
