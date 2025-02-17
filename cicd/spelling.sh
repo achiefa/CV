@@ -26,9 +26,6 @@ fi
 # Some words need to be appended by hand
 echo Ph >> $dic_path
 
-# Append the word
-echo $word >> $dic_path
-
 # Loop through each .tex file
 for file in $tex_files; do
   echo -e "\nChecking spelling for file: $file"
