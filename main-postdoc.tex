@@ -1,0 +1,25 @@
+% ============================================================================
+%  Academic / postdoc CV.  This file controls ONLY which sections appear and
+%  in what order.  All facts live in content/; all styling in style/.
+%  Build:  latexmk -pdf main-postdoc.tex
+% ============================================================================
+\documentclass[10pt,a4paper]{article}
+\usepackage{style/cvbase}
+\setcvvariant{postdoc}
+\usepackage{style/render-postdoc}
+
+\begin{document}
+\input{content/header}
+
+\cvsection{Research Interests}                    \input{content/summary}
+\cvsection{Publications}                          \input{content/publications}
+\cvsection{Education}                             \input{content/education}
+\cvsection{Selected Talks}                        \input{content/talks}
+\cvsection{Research Experience and Collaborations}\input{content/experience}
+\cvsection{Awards, Funding and Training}          \input{content/awards}
+\cvsection{Teaching}                              \input{content/teaching}
+\cvsection{Technical Skills}                      \input{content/skills}
+\cvsection{Languages and Referees}                \input{content/languages}
+
+\cvfooter
+\end{document}

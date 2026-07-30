@@ -7,7 +7,12 @@ on:
 
 jobs:
   build:
+    name: Build (${{ matrix.variant }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [postdoc, quant]
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
@@ -31,31 +36,19 @@ jobs:
       - name: Compile LaTeX Document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: main.tex
+          root_file: main-${{ matrix.variant }}.tex
       - name: move pdf
-        run: mv ./main.pdf ./github_artifacts/
+        run: mv ./main-${{ matrix.variant }}.pdf ./github_artifacts/
+      # The academic CV is the one published at the top-level main.pdf URL,
+      # so existing links keep working.
+      - name: alias postdoc build as main.pdf
+        if: ${{ matrix.variant == 'postdoc' }}
+        run: cp ./github_artifacts/main-postdoc.pdf ./github_artifacts/main.pdf
       - name: Upload pdf as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: main.pdf
+          name: main-${{ matrix.variant }}.pdf
           path: ./github_artifacts
-      # - name: Install ghostscript
-      #   run: sudo apt install ghostscript -y
-      # - name: Workaround ghostscript vunerability protection
-      #   # A vunerabillty that existed in ghostscript no longer exists.  This is to work around the temporary protection
-      #   # that was put in place
-      #   # https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion
-      #   run: sudo sed -i 's/rights="none" pattern="PDF"/rights="read | write" pattern="PDF"/' /etc/ImageMagick-6/policy.xml
-      # - name: Generate Thumbnail for Page 1
-      #   #uses: jruipinto/ImageMagick-action@v1
-      #   run: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[0] ac-cv-thumbnail-p1.jpg
-      # - name: move Thumbnail for Page 1
-      #   run: mv ac-cv-thumbnail-p1.jpg github_artifacts
-      # - name: Generate Thumbnail for Page 2
-      #   #uses: jruipinto/ImageMagick-action@v1
-      #   run: convert -density 700 -resize 10% -append -quality 98 -alpha remove rb-cv.pdf[1] ac-cv-thumbnail-p2.jpg
-      # - name: move Thumbnail for Page 2
-      #   run: mv ac-cv-thumbnail-p2.jpg github_artifacts
 
   deploy:
     needs: [build]

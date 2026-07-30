@@ -1,0 +1,30 @@
+% ============================================================================
+%  render-quant.sty -- how entries LOOK in the industry variant.
+%  Compact. Author lists dropped, publications filtered to tag "core",
+%  thesis titles suppressed, grades promoted to the right-hand column.
+% ============================================================================
+\ProvidesPackage{style/render-quant}[2026/07/30 Industry renderer]
+
+% \pubentry{tags}{title}{authors}{venue}{arxiv-id}
+% Only entries tagged "core" survive; authors dropped; one line each.
+\renewcommand{\pubentry}[5]{%
+  \cvhastag{#1}{core}{\item[] \textbf{#2} — #4\IfStrEq{#5}{}{}{ | \arxiv{#5}}}}
+
+% \expentry{organisation}{role}{dates}{body}  -- role leads, org follows
+\renewcommand{\expentry}[4]{%
+  \item[] \headerrow{\textbf{#2}, #1}{#3}
+  #4}
+
+% \eduentry{degree}{grade}{dates}{institution+supervisor}{detail}
+% Grade joins the date column; thesis detail (#5) is dropped.
+\renewcommand{\eduentry}[5]{%
+  \item[] \headerrow{\textbf{#1}}{#3 \IfStrEq{#2}{}{}{— #2}}
+  #4}
+
+% \talkentry -- individual talks are not listed in this variant.
+\renewcommand{\talkentry}[4]{}
+
+% \awardentry{tags}{name+link}{dates}{description} -- one line, no description
+\renewcommand{\awardentry}[4]{%
+  \item[] \textbf{#2} (#3)}
+\endinput
