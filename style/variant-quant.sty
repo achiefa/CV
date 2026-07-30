@@ -33,7 +33,8 @@
 
 % ------------------------------------------------------------- renderers --
 % Compact. Authors dropped; role leads the line; thesis detail suppressed.
-\renewcommand{\pubentry}[4]{%
+% #5 (lead-author flag) is deliberately ignored: this variant prints no legend.
+\renewcommand{\pubentry}[5]{%
   \item[] \textbf{#1} — #3\IfStrEq{#4}{}{}{ | \arxiv{#4}}}
 
 \renewcommand{\expentry}[4]{%

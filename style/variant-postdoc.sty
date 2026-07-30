@@ -19,8 +19,9 @@
 
 % ------------------------------------------------------------- renderers --
 % Full author lists, journal reference, thesis titles, every talk spelled out.
-\renewcommand{\pubentry}[4]{%
-  \item[] \textbf{#1}\\ #2 \\ #3\IfStrEq{#4}{}{}{ | e-Print: \arxiv{#4}}}
+\renewcommand{\pubentry}[5]{%
+  \item[] \textbf{#1}\IfStrEq{#5}{}{}{~$\dagger$}\\ #2 \\
+  #3\IfStrEq{#4}{}{}{ | e-Print: \arxiv{#4}}}
 
 \renewcommand{\expentry}[4]{%
   \item[] \headerline{\textbf{#1} — #2}{#3}#4}
