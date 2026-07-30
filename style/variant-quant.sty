@@ -9,13 +9,25 @@
 \RequirePackage{titlesec}
 
 % ------------------------------------------------------------------ look --
-\definecolor{cvaccent}{HTML}{1F3864}
-\titleformat{\subsection}[block]
-  {\normalsize\sffamily\bfseries\color{cvaccent}\MakeUppercase}{}{0em}{}%
-  [\vspace{-0.5em}{\color{cvaccent}\rule{\linewidth}{1.1pt}}]
-\titlespacing*{\subsection}{0pt}{0.75em}{0.3em}
+\definecolor{cvaccent}{HTML}{1F3864} % dark blue
+
+\titleformat
+  {\subsection} % command
+  [block] % shape
+  {\normalsize\sffamily\bfseries\color{cvaccent}}   % format
+  {}                                                          % Label
+  {0em}                                                       % sep
+  {}                                                          % before-code
+  [\vspace{-0.6em}{\color{cvaccent}\rule{\linewidth}{1.2pt}}] % after-code
+
+\titlespacing*{\subsection}%
+  {0pt} % Increment left margin
+  {0.75em} % vertical space before title
+  {0.3em} % separation between title and non-sectioning text
+
 \newcommand{\cvsection}[1]{\subsection*{#1}}
-\setlist[itemize]{itemsep=0.15em, topsep=0.2em, parsep=0em}
+
+\setlist[itemize]{itemsep=0.20em, topsep=0.2em, parsep=0em}
 \newenvironment{cvlist}{\begin{itemize}[leftmargin=0.9em]}{\end{itemize}}
 \newenvironment{cvsub}{\begin{itemize}[leftmargin=1.1em,label=\textbullet,topsep=0.1em]}{\end{itemize}}
 
