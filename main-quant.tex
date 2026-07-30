@@ -1,25 +1,103 @@
 % ============================================================================
-%  Quantitative finance / data science CV.  Same content files, different
-%  order, different renderer.  Note: talks are not listed individually here
-%  (they are summarised in Awards instead), so content/talks is not included.
+%  QUANTITATIVE FINANCE / DATA SCIENCE CV
+%
+%  Same content database as the academic CV; different selection, order,
+%  register and visual style. Note \usetalk is never called here -- talks are
+%  summarised in prose under Awards instead.
 %  Build:  latexmk -pdf main-quant.tex
 % ============================================================================
 \documentclass[10pt,a4paper]{article}
-\usepackage{style/cvbase}
-\setcvvariant{quant}
-\usepackage{style/render-quant}
+\usepackage{style/cvkit}
+\usepackage{style/variant-quant}
+
+\input{content/publications}
+\input{content/experience}
+\input{content/education}
+\input{content/awards}
+\input{content/skills}
 
 \begin{document}
-\input{content/header}
 
-\cvsection{Profile}                          \input{content/summary}
-\cvsection{Technical Skills}                 \input{content/skills}
-\cvsection{Research \& Engineering Experience}\input{content/experience}
-\cvsection{Education}                        \input{content/education}
-\cvsection{Selected Publications}            \input{content/publications}
-\cvsection{Awards \& Additional Training}    \input{content/awards}
-\cvsection{Additional}                       \input{content/teaching}
-                                             \input{content/languages}
+\begin{center}
+    {\LARGE \textbf{\sffamily Amedeo Chiefa}} \\[0.12cm]
+    {\normalsize Ph.D., Theoretical Physics \& Machine Learning — University of Edinburgh} \\
+    \vspace{0.15cm}
+    \small
+    \href{mailto:amedeo.chiefa@ed.ac.uk}{amedeo.chiefa@ed.ac.uk} |
+    \href{https://github.com/achiefa}{github.com/achiefa} |
+    \href{https://www.linkedin.com/in/amedeo-chiefa-b6a6bb231/}{LinkedIn} |
+    Edinburgh, UK |
+    \TODO{phone; work authorisation status if applying outside the UK}
+    \normalsize
+\end{center}
 
-\cvfooter
+\cvsection{Profile}
+\begin{cvlist}
+  \item[] Physics Ph.D. (submitting 2027) specialising in statistical inference and machine
+          learning on large, noisy experimental datasets. My research fits high-dimensional
+          models to heterogeneous data with correlated systematic uncertainties, and uses
+          neural tangent kernel theory to establish when the uncertainties those models report
+          can be trusted. Six peer-reviewed publications; production Python/C++ contributor in
+          two international collaborations. Seeking \TODO{systematic research / quant developer
+          / data science -- pick one and I will sharpen this line to match}.
+\end{cvlist}
+
+\cvsection{Technical Skills}
+\begin{cvlist}
+  \useskill{prog-industry}
+  \useskill{ml-industry}
+  \useskill{methods-industry}
+  \useskill{eng-industry}
+  \useskill{other}
+\end{cvlist}
+
+\cvsection{Research \& Engineering Experience}
+\begin{cvlist}
+  \usexp{phd}{industry}
+  \usexp{nnpdf}{industry}
+  \usexp{map}{industry}
+  \usexp{cea}{industry}
+\end{cvlist}
+
+\cvsection{Education}
+\begin{cvlist}
+  \useedu{phd}
+  \useedu{msc}
+  \useedu{bsc}
+\end{cvlist}
+
+\cvsection{Selected Publications}
+\begin{cvlist}
+  \item[] \footnotesize Six peer-reviewed publications since 2024. Author lists follow the
+    alphabetical convention standard in this field. Full list:
+    \TODO{INSPIRE-HEP / Google Scholar link}. \normalsize
+  \usepub{ntk}
+  \usepub{runii}
+  \usepub{helicity}
+  \usepub{twist}
+\end{cvlist}
+
+\cvsection{Awards \& Additional Training}
+\begin{cvlist}
+  \useaward{iliad}
+  \useaward{aiforscience}
+  \useaward{erasmus}
+  \item[] \textbf{Invited conference speaker} (3 talks, 2024--2025), including DIS2024 and the
+    COMETA Workshop on Uncertainty Quantification for Machine Learning.
+  \item[] \TODO{undergraduate prizes, merit scholarships, cohort ranking?}
+\end{cvlist}
+
+\cvsection{Additional}
+\begin{cvlist}
+  \item[] \textbf{Teaching:} Tutor in Statistical Physics, Quantum Mechanics and Computer
+    Simulation, University of Edinburgh (2023--2026) — three years explaining quantitative
+    material to non-expert audiences.
+  \item[] \textbf{Languages:} Italian (native); English (fluent, IELTS 7.5/9.0); French (basic).
+\end{cvlist}
+
+\vfill\hrule
+\begin{description}\item
+  \headerrow{{\textsubscript{Written in {\LaTeX} and generated using GitHub actions.}}}
+            {{\textsubscript{@@version@@}}}
+\end{description}
 \end{document}

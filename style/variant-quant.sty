@@ -1,0 +1,43 @@
+% ============================================================================
+%  variant-quant.sty -- the INDUSTRY look, and the compact renderers.
+%  Deliberately a different-looking document: sans-serif headings, a coloured
+%  accent rule, tighter leading, no author lists, no thesis titles.
+% ============================================================================
+\ProvidesPackage{style/variant-quant}[2026/07/30 Industry variant]
+
+\RequirePackage[a4paper,top=0.5in,bottom=0.5in,left=0.65in,right=0.65in]{geometry}
+\RequirePackage{titlesec}
+
+% ------------------------------------------------------------------ look --
+\definecolor{cvaccent}{HTML}{1F3864}
+\titleformat{\subsection}[block]
+  {\normalsize\sffamily\bfseries\color{cvaccent}\MakeUppercase}{}{0em}{}%
+  [\vspace{-0.5em}{\color{cvaccent}\rule{\linewidth}{1.1pt}}]
+\titlespacing*{\subsection}{0pt}{0.75em}{0.3em}
+\newcommand{\cvsection}[1]{\subsection*{#1}}
+\setlist[itemize]{itemsep=0.15em, topsep=0.2em, parsep=0em}
+\newenvironment{cvlist}{\begin{itemize}[leftmargin=0.9em]}{\end{itemize}}
+\newenvironment{cvsub}{\begin{itemize}[leftmargin=1.1em,label=\textbullet,topsep=0.1em]}{\end{itemize}}
+
+% ------------------------------------------------------------- renderers --
+% Compact. Authors dropped; role leads the line; thesis detail suppressed.
+\renewcommand{\pubentry}[4]{%
+  \item[] \textbf{#1} — #3\IfStrEq{#4}{}{}{ | \arxiv{#4}}}
+
+\renewcommand{\expentry}[4]{%
+  \item[] \headerline{\textbf{#2}, #1}{#3}#4}
+
+% {degree}{grade}{dates}{institution}{supervisor}{detail}
+% Grade is promoted to the date column; supervisor and thesis are dropped.
+\renewcommand{\eduentry}[6]{%
+  \item[] \headerrow{\textbf{#1}, #4}{#3\IfStrEq{#2}{}{}{ — #2}}}
+
+% Individual talks are summarised in prose in this variant, not listed.
+\renewcommand{\talkentry}[4]{}
+
+\renewcommand{\awardentry}[3]{\item[] \textbf{#1} (#2)}
+
+\renewcommand{\skillentry}[2]{\item[] \textbf{#1:} #2}
+
+\cvloadhyperref
+\endinput

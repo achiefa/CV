@@ -1,25 +1,120 @@
 % ============================================================================
-%  Academic / postdoc CV.  This file controls ONLY which sections appear and
-%  in what order.  All facts live in content/; all styling in style/.
+%  ACADEMIC / POSTDOC CV
+%
+%  This file owns: the prose, which entries appear, and in what order.
+%  It does not own facts (those live in content/) or styling (style/).
 %  Build:  latexmk -pdf main-postdoc.tex
 % ============================================================================
 \documentclass[10pt,a4paper]{article}
-\usepackage{style/cvbase}
-\setcvvariant{postdoc}
-\usepackage{style/render-postdoc}
+\usepackage{style/cvkit}
+\usepackage{style/variant-postdoc}
+
+\input{content/publications}
+\input{content/experience}
+\input{content/education}
+\input{content/talks}
+\input{content/awards}
+\input{content/skills}
 
 \begin{document}
-\input{content/header}
 
-\cvsection{Research Interests}                    \input{content/summary}
-\cvsection{Publications}                          \input{content/publications}
-\cvsection{Education}                             \input{content/education}
-\cvsection{Selected Talks}                        \input{content/talks}
-\cvsection{Research Experience and Collaborations}\input{content/experience}
-\cvsection{Awards, Funding and Training}          \input{content/awards}
-\cvsection{Teaching}                              \input{content/teaching}
-\cvsection{Technical Skills}                      \input{content/skills}
-\cvsection{Languages and Referees}                \input{content/languages}
+\begin{center}
+    {\LARGE \textbf{Amedeo Chiefa}} \\[0.1cm]
+    {\large Ph.D. Candidate, Theoretical Particle Physics} \\
+    \vspace{0.15cm}
+    \small
+    The Higgs Centre for Theoretical Physics, University of Edinburgh (UK) \\
+    \vspace{0.15cm}
+    \href{mailto:amedeo.chiefa@ed.ac.uk}{amedeo.chiefa@ed.ac.uk} |
+    \href{https://www.linkedin.com/in/amedeo-chiefa-b6a6bb231/}{LinkedIn} |
+    \href{https://github.com/achiefa}{GitHub} |
+    \TODO{ORCID} | \TODO{INSPIRE-HEP profile}
+    \normalsize
+\end{center}
 
-\cvfooter
+\cvsection{Research Interests}
+\begin{cvlist}
+  \item[] I am a Ph.D. candidate (2023--2027) working at the interface of QCD phenomenology
+          and machine learning. My research develops a quantitative understanding of how deep
+          neural networks learn parton distributions: I use neural tangent kernel theory to
+          characterise the training dynamics of PDF fits and to establish whether the
+          uncertainties such fits report are faithful. I am an active developer in the NNPDF
+          and MAP collaborations, with six publications since 2024 in \textit{PLB},
+          \textit{JHEP} and \textit{EPJC}.
+\end{cvlist}
+
+\cvsection{Publications}
+\begin{cvlist}
+  \item[] \footnotesize \textit{Author lists in this field follow the alphabetical convention.
+    Publications in which I led the analysis are marked~$\dagger$.}
+    \TODO{confirm which papers carry the dagger} \normalsize
+  \usepub{lambda}
+  \usepub{ntk}
+  \usepub{twist}
+  \usepub{runii}
+  \usepub{helicity}
+  \usepub{dis2024}
+\end{cvlist}
+
+\cvsection{Education}
+\begin{cvlist}
+  \useedu{phd}
+  \useedu{msc}
+  \useedu{bsc}
+\end{cvlist}
+
+\cvsection{Selected Talks}
+\begin{cvlist}
+  \usetalk{ntk-twins}
+  \usetalk{ntk-cometa}
+  \usetalk{dis2024}
+  \item[] \TODO{add collaboration-meeting talks, group seminars, posters -- three entries in
+    three years reads thin}
+\end{cvlist}
+
+\cvsection{Research Experience and Collaborations}
+\begin{cvlist}
+  \usexp{nnpdf}{academic}
+  \usexp{map}{academic}
+  \usexp{cea}{academic}
+\end{cvlist}
+
+\cvsection{Awards, Funding and Training}
+\begin{cvlist}
+  \useaward{iliad}
+  \useaward{aiforscience}
+  \item[] \TODO{undergraduate prizes, merit scholarships, cohort ranking?}
+\end{cvlist}
+
+\cvsection{Teaching}
+\begin{cvlist}
+  \item[] School of Physics and Astronomy, University of Edinburgh (UK):
+    \textbf{Tutor} in Statistical Physics (4th year, 2025/2026);
+    \textbf{Tutor} in Principles of Quantum Mechanics (3rd year, 2024/2025 and 2025/2026,
+    also teaching duties);
+    \textbf{Tutor} in Computer Simulation (2nd year, 2023/2024).
+  \item[] \TODO{any MSc/undergraduate project supervision?}
+\end{cvlist}
+
+\cvsection{Technical Skills}
+\begin{cvlist}
+  \useskill{prog}
+  \useskill{ml}
+  \useskill{methods}
+  \useskill{eng}
+  \useskill{other}
+\end{cvlist}
+
+\cvsection{Languages and Referees}
+\begin{cvlist}
+  \item[] \textbf{Languages:} Italian (native); English (fluent — IELTS Academic 7.5/9.0, 2023;
+    three years of research and undergraduate teaching in the UK); French (basic).
+  \item[] \textbf{Referees:} \TODO{three names, affiliation and email -- confirm they have agreed}
+\end{cvlist}
+
+\vfill\hrule
+\begin{description}\item
+  \headerrow{{\textsubscript{Written in {\LaTeX} and generated using GitHub actions.}}}
+            {{\textsubscript{@@version@@}}}
+\end{description}
 \end{document}
