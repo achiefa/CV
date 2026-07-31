@@ -11,7 +11,8 @@
   Foundational work on the training dynamics of neural networks used for
   high-dimensional model fitting to noisy experimental data: a typical fit
   carries $\sim$600 free parameters constrained by $\sim$5,000 correlated
-  measurements. Developed a
+  measurements, with experimental uncertainties propagated by Monte Carlo
+  bootstrap over $\sim$100 replicas. Developed a
   theoretical framework based on the neural tangent kernel that gives a
   quantitative account of how such fits behave, and that tests whether the
   uncertainties they report are statistically faithful
@@ -40,9 +41,9 @@
   \xpdesc{map}{industry}{%
   Co-designed and built \href{https://github.com/MapCollaboration/Denali}{Denali}, an
   open-source C++ fitting library (Ceres non-linear least squares, automatic
-  differentiation of network parameters) that propagates data uncertainties
-  through Monte Carlo replica fits with train/validation splitting. Released
-  with a citable DOI; now extending it to higher theoretical accuracy.}
+  differentiation of network parameters) implementing the same bootstrap
+  procedure with train/validation splitting. Released with a citable DOI; now
+  extending it to higher theoretical accuracy.}
 
 \definexp{cea}{CEA Paris-Saclay, IRFU (France)}{Erasmus+ Traineeship}{03/2023 -- 05/2023}
 \xpdesc{cea}{academic}{%
