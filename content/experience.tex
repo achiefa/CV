@@ -24,8 +24,8 @@
   Maintain and extend the production Python codebase used collaboration-wide for
   large-scale model fitting: code review, CI, and release process. Extended the
   framework to account for theoretical uncertainties from missing higher-order
-  corrections through a Bayesian treatment of the data, producing a new PDF set
-  that ships in the forthcoming NNPDF4.1 release. Delivered within a distributed
+  corrections through a Bayesian treatment of the data, producing a new set of
+  fitted distributions that ships in the forthcoming NNPDF4.1 release. Delivered within a distributed
   team of 20+ international researchers, with regular group meetings, internal
   presentations, and mentoring of new members.}
 
@@ -36,9 +36,11 @@
   MAP analysis framework to polarised parton distribution functions; currently
   extending it to higher-order theoretical accuracy.} 
   \xpdesc{map}{industry}{%
-  Co-designed and built the codebase \href{https://github.com/MapCollaboration/Denali}{Denali}, 
-  extending the collaboration's inference framework to a previously unsupported class of 
-  physical observables; now extending it to higher-order theoretical accuracy.}
+  Co-designed and built \href{https://github.com/MapCollaboration/Denali}{Denali}, an
+  open-source C++ fitting library (Ceres non-linear least squares, automatic
+  differentiation of network parameters) that propagates data uncertainties
+  through Monte Carlo replica fits with train/validation splitting. Released
+  with a citable DOI; now extending it to higher theoretical accuracy.}
 
 \definexp{cea}{CEA Paris-Saclay, IRFU (France)}{Erasmus+ Traineeship}{03/2023 -- 05/2023}
 \xpdesc{cea}{academic}{%
