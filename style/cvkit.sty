@@ -54,6 +54,10 @@
   \cvfieldset{edu}{#1}{dates}{#4}\cvfieldset{edu}{#1}{institution}{#5}%
   \cvfieldset{edu}{#1}{supervisor}{#6}\cvfieldset{edu}{#1}{detail}{#7}}
 
+% \edushort{key}{short form}  -- optional compact date, e.g. "2023".
+% Renderers choose; the academic one keeps the full date.
+\newcommand{\edushort}[2]{\cvfieldset{edu}{#1}{short}{#2}}
+
 % \definetalk{key}{title}{url}{date}{event}
 \newcommand{\definetalk}[5]{%
   \cvfieldset{talk}{#1}{title}{#2}\cvfieldset{talk}{#1}{url}{#3}%
@@ -86,7 +90,8 @@
 \newcommand{\useedu}[1]{\cv@require{edu}{#1}{degree}%
   \eduentry{\cvfieldget{edu}{#1}{degree}}{\cvfieldget{edu}{#1}{grade}}%
            {\cvfieldget{edu}{#1}{dates}}{\cvfieldget{edu}{#1}{institution}}%
-           {\cvfieldget{edu}{#1}{supervisor}}{\cvfieldget{edu}{#1}{detail}}}
+           {\cvfieldget{edu}{#1}{supervisor}}{\cvfieldget{edu}{#1}{detail}}%
+           {\cvfieldopt{edu}{#1}{short}}}
 
 \newcommand{\usetalk}[1]{\cv@require{talk}{#1}{title}%
   \talkentry{\cvfieldget{talk}{#1}{title}}{\cvfieldget{talk}{#1}{url}}%
@@ -105,7 +110,7 @@
 \newcommand{\cv@nodef}[1]{\PackageError{cvkit}{\string#1\space not defined by this variant}{}}
 \newcommand{\pubentry}[5]{\cv@nodef{\pubentry}}
 \newcommand{\expentry}[4]{\cv@nodef{\expentry}}
-\newcommand{\eduentry}[6]{\cv@nodef{\eduentry}}
+\newcommand{\eduentry}[7]{\cv@nodef{\eduentry}}
 \newcommand{\talkentry}[4]{\cv@nodef{\talkentry}}
 \newcommand{\awardentry}[3]{\cv@nodef{\awardentry}}
 \newcommand{\skillentry}[2]{\cv@nodef{\skillentry}}

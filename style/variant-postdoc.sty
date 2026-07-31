@@ -26,8 +26,9 @@
 \renewcommand{\expentry}[4]{%
   \item[] \headerline{\textbf{#1} — #2}{#3}#4}
 
-% {degree}{grade}{dates}{institution}{supervisor}{detail}
-\renewcommand{\eduentry}[6]{%
+% {degree}{grade}{dates}{institution}{supervisor}{detail}{short date}
+% #7 ignored: the academic convention is the full date.
+\renewcommand{\eduentry}[7]{%
   \item[] \headerline{\textbf{#1}\IfStrEq{#2}{}{}{ (#2)}}{#3}%
   #4\IfStrEq{#5}{}{}{ — Supervisor: #5} \\ #6}
 

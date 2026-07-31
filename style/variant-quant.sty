@@ -42,8 +42,8 @@
 
 % {degree}{grade}{dates}{institution}{supervisor}{detail}
 % Grade is promoted to the date column; supervisor and thesis are dropped.
-\renewcommand{\eduentry}[6]{%
-  \item[] \headerrow{\textbf{#1}, #4}{#3\IfStrEq{#2}{}{}{ — #2}}}
+\renewcommand{\eduentry}[7]{%
+  \item[] \headerrow{\textbf{#1}, #4}{\IfStrEq{#7}{}{#3}{#7}\IfStrEq{#2}{}{}{ — #2}}}
 
 % Individual talks are summarised in prose in this variant, not listed.
 \renewcommand{\talkentry}[4]{}
