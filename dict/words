@@ -9,12 +9,15 @@ Bongallino
 C1
 CEA
 COMETA
+Ceres
 Chiefa
 Classe
 Costantini
 DIS2024
+DOI
 Debbio
 DeepMind
+Denali
 Docker
 Dott
 EH9
@@ -39,6 +42,7 @@ LM
 NNLO
 NNPDF
 NNPDF's
+NNPDF4.1
 NTKTODO
 Nocera
 NumPy
@@ -60,6 +64,7 @@ Ubiali
 Valerio
 achiefa
 arXiv
+autodiff
 codebase
 conda
 dagger
@@ -77,6 +82,8 @@ pytest
 quantification
 renderer
 renderers
+replica
+replicas
 scienze
 tecnologie
 yrs
