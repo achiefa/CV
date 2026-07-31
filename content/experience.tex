@@ -9,40 +9,57 @@
 \definexp{phd}{University of Edinburgh}{Doctoral Researcher}{11/2023 -- present}
 \xpdesc{phd}{industry}{%
   \begin{cvsub}
-    \item Built a theoretical framework using neural tangent kernel analysis to explain why
-          neural network fits to experimental data converge as they do, and to test whether
-          their reported uncertainties are statistically faithful (\textit{Eur.Phys.J.C}).
-    \item Led a quantitative appraisal of model uncertainty against a new dataset of
-          \TODO{$\sim$N} measurements, quantifying how model choice and systematic
-          correlations propagate into final predictions (\textit{JHEP}).
-    \item \TODO{one line on scale: how many parameters, how large the datasets, how much
-          compute per fit? Industry readers care and it is currently invisible.}
-  \end{cvsub}}
+    \item Working on foundational aspects of neural network training dynamics in
+          the context of high-dimensional model fitting to noisy experimental
+          datasets. The theoretical framework based on the neural tangent kernel
+          provides a quantitative explanation of the properties of neural
+          network fits to experimental data, and tests whether their reported
+          uncertainties are statistically faithful (\textit{Eur.Phys.J.C}).
+    \item Member of the NNPDF collaboration, focusing on the
+          extraction of parton distribution functions from global analysis of
+          experimental data. Developed and maintained the production Python
+          codebase used collaboration-wide. Extended the framework to account
+          for theoretical uncertainties due to missing corrections in the
+          perturbative expansion through a Bayesian analysis of the data,
+          resulting in a new PDF set and now part of the future code
+          release (\textit{EPJC}). Working in a collaborative environment with
+          20+ international researchers, including group meetings,
+          presentations, mentoring of new members and team working. Actively
+          contributing to the forthcoming release of the NNPDF fitting codebase,
+          NNPDF4.1.
+    \item Working with external collaborators outside the NNPDF collaboration in
+          the context of the MAP collaboration, extending the theoretical
+          accuracy of the MAP inference framework to fragmentation functions
+          (\href{https://github.com/MapCollaboration/MontBlanc/pull/10}{MontBlanc
+          PR 10}). \end{cvsub}}
 
-\definexp{nnpdf}{\href{https://nnpdf.mi.infn.it}{NNPDF Collaboration}}{Developer}{since 11/2023}
+\definexp{nnpdf}{\href{https://nnpdf.mi.infn.it}{NNPDF Collaboration}}{Member and Developer}{since 11/2023}
 \xpdesc{nnpdf}{academic}{%
   Contribute to the maintenance and development of the NNPDF fitting codebase, a production
-  Python/C++ framework used collaboration-wide to determine the parton distribution functions
-  of the proton. \TODO{name one concrete component you own}}
+  Python framework used collaboration-wide to determine the parton distribution functions
+  of the proton.}
 \xpdesc{nnpdf}{industry}{%
-  Maintain and extend a production Python/C++ scientific codebase used collaboration-wide for
+  Maintain and extend a production Python scientific codebase used collaboration-wide for
   large-scale model fitting; code review, CI, and release process in a distributed team.
-  \TODO{name one concrete component you own}}
+  }
 
 \definexp{map}{\href{https://github.com/MapCollaboration}{MAP Collaboration}}{Developer}{since 03/2023}
 \xpdesc{map}{academic}{%
-  Co-developed, with three other members, the first codebase extending the MAP analysis
-  framework to polarised parton distribution functions; currently extending it to higher-order
-  theoretical accuracy.}
-\xpdesc{map}{industry}{%
-  Co-designed and built, with three others, a new codebase extending the collaboration's
-  inference framework to a previously unsupported class of models; now extending it to
-  higher-order theoretical accuracy.}
+  Co-developed the codebase
+  \href{https://github.com/MapCollaboration/Denali}{Denali} that extended the
+  MAP analysis framework to polarised parton distribution functions; currently
+  extending it to higher-order theoretical accuracy.} 
+  \xpdesc{map}{industry}{%
+  Co-designed and built the codebase \href{https://github.com/MapCollaboration/Denali}{Denali}, 
+  extending the collaboration's inference framework to a previously unsupported class of 
+  physical observables; now extending it to higher-order theoretical accuracy.}
 
 \definexp{cea}{CEA Paris-Saclay, IRFU (France)}{Erasmus+ Traineeship}{03/2023 -- 05/2023}
 \xpdesc{cea}{academic}{%
   Supervisor: Dr Valerio Bertone. Determination of the polarised parton distribution functions
   of the proton at NNLO within the MAP framework. Competitively funded by the European Commission.}
 \xpdesc{cea}{industry}{%
-  Competitively funded by the European Commission. Statistical extraction of model parameters
-  from global datasets; supervisor Dr Valerio Bertone.}
+  Competitively funded by the European Commission. Statistical extraction of
+  model parameters from global datasets at unprecedented theoretical accuracy;
+  development of \href{https://github.com/MapCollaboration/Denali}{Denali};
+  supervisor Dr Valerio Bertone.}
