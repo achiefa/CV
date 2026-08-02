@@ -38,10 +38,10 @@ jobs:
         with:
           root_file: main-${{ matrix.variant }}.tex
       - name: move pdf
-        run: mv ./main-${{ matrix.quant }}.pdf ./github_artifacts/
+        run: mv ./main-${{ matrix.variant }}.pdf ./github_artifacts/
       # The quant CV is the one published at the top-level main.pdf URL,
       # so existing links keep working.
-      - name: alias postdoc build as main.pdf
+      - name: alias quant build as main.pdf
         if: ${{ matrix.variant == 'quant' }}
         run: cp ./github_artifacts/main-quant.pdf ./github_artifacts/main.pdf
       - name: Upload pdf as artifact

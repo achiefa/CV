@@ -3,22 +3,9 @@ on: [pull_request, workflow_dispatch, push]
 
 jobs:
 
-  spelling:
-    name: Check spelling
+  build_and_check:
+    name: Build and check (${{ matrix.variant }})
     runs-on: ubuntu-latest
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v4
-      - name: Install hunspell
-        run: sudo apt-get -y install hunspell hunspell-en-gb
-      - name: Spell Check
-        shell: bash --noprofile --norc -eo pipefail -o nounset {0}
-        run: bash cicd/spelling.sh
-
-  build_pdf:
-    name: Create PDF (${{ matrix.variant }})
-    runs-on: ubuntu-latest
-    if: ${{ contains(github.event.head_commit.message, '@@upload@@') }}
     strategy:
       fail-fast: false
       matrix:
@@ -46,38 +33,26 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main-${{ matrix.variant }}.tex
+      - name: Install hunspell and poppler
+        run: sudo apt-get -y install hunspell hunspell-en-gb poppler-utils
+      # Both checks read the built PDF, so they run here rather than in separate
+      # jobs that would have to round-trip it through an artifact.
+      - name: Spell Check
+        run: cicd/spelling.sh main-${{ matrix.variant }}.pdf
+        shell: bash --noprofile --norc -eo pipefail -o nounset {0}
+      - name: Length of Document Check
+        run: cicd/Length.sh main-${{ matrix.variant }}.pdf
+        shell: bash --noprofile --norc -eo pipefail -o nounset {0}
       - name: Upload Artefact
         uses: actions/upload-artifact@v4
         with:
           name: main-${{ matrix.variant }}.pdf
           path: ./main-${{ matrix.variant }}.pdf
 
-  two_pages:
-    name: Is less than three pages (${{ matrix.variant }})
-    needs: build_pdf
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        variant: [postdoc, quant]
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v4
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: main-${{ matrix.variant }}.pdf
-          path: ./
-      - name: Install pdfinfo
-        run: sudo apt-get install poppler-utils
-      - name: Length of Document Check
-        run: cicd/Length.sh main-${{ matrix.variant }}.pdf
-        shell: bash --noprofile --norc -eo pipefail -o nounset {0}
-
   can_create_thumbnail:
     name: Can create thumbnail
     if: ${{ contains(github.event.head_commit.message, '@@thumbnail@@') }}
-    needs: build_pdf
+    needs: build_and_check
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository

@@ -96,10 +96,20 @@ latexmk -pdf main-postdoc.tex
 latexmk -pdf main-quant.tex
 ```
 
-## Before sending a CV out
-
-Placeholders render in red as `[TODO: ...]`. Check none remain:
+## Checking a CV
 
 ```bash
-grep -rn "TODO" content/ *.tex
+cicd/spelling.sh main-quant.pdf    # spelling + leftover [TODO: ...] placeholders
+cicd/Length.sh   main-quant.pdf    # fails above two pages
 ```
+
+Both run in CI on every push and pull request, for both variants.
+
+The spell checker reads the *rendered text* of the PDF rather than the LaTeX
+source. That is deliberate: entry keys, command names, lengths and arXiv IDs are
+not words, and checking the source meant every one of them had to be whitelisted
+in `dict/words` before CI would go green. Checking the PDF means `dict/words`
+holds domain vocabulary only, and adding a `\definepub{key}` never touches it.
+
+Placeholders render in red as `[TODO: ...]` and are a hard failure, so a CV with
+an unresolved placeholder cannot pass.

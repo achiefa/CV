@@ -2,8 +2,7 @@
 %  QUANTITATIVE FINANCE / DATA SCIENCE CV
 %
 %  Same content database as the academic CV; different selection, order,
-%  register and visual style. Note \usetalk is never called here -- talks are
-%  summarised in prose under Awards instead.
+%  register and visual style.
 %  Build:  latexmk -pdf main-quant.tex
 % ============================================================================
 \documentclass[10pt,a4paper]{article}
@@ -13,6 +12,7 @@
 \input{content/publications}
 \input{content/experience}
 \input{content/education}
+\input{content/talks}
 \input{content/awards}
 \input{content/skills}
 
@@ -80,20 +80,24 @@
   \usepub{helicity}
 \end{cvlist}
 
-\cvsection{Contributions \& Additional Training}
+\cvsection{Conference Contribtutions \& Invited Talks}
+\begin{cvlist}
+  \usetalk{ntk-twins}
+  \usetalk{ntk-cometa}
+  \usetalk{dis2024}
+\end{cvlist}
+
+\cvsection{Additional Training}
 \begin{cvlist}
   \useaward{iliad} Month-long selective taught course in graduate-level applied mathematics for AI alignment research.
   \useaward{aiforscience} Applications of AI in scientific research; sponsored by Google DeepMind and the Hellenic
    Institute of Advanced Studies.
-  \item[] \textbf{Invited conference speaker} (3 talks, 2024--2025), including DIS2024 and the
-    COMETA Workshop on Uncertainty Quantification for Machine Learning.
 \end{cvlist}
 
 \cvsection{Additional}
 \begin{cvlist}
-  \item[] \textbf{Teaching:} Tutor in Statistical Physics, Quantum Mechanics and Computer
-    Simulation, University of Edinburgh (2023--2026) — three years explaining quantitative
-    material to non-expert audiences.
+  \item[] \textbf{Teaching:} Teaching Assistant in Statistical Physics, Quantum Mechanics and Computer
+    Simulation, University of Edinburgh (2023--2026) — undergraduate students.
   \item[] \textbf{Languages:} Italian (native); English (full professional
   proficiency); French (basic).
 \end{cvlist}

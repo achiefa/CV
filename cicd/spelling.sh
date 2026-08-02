@@ -1,68 +1,51 @@
-#!bin/bash
+#!/bin/bash
 #
-# Check the spelling of the LaTeX file and fail if there are errors.
+# Spell-check the rendered text of a CV PDF.
 #
+# Checking the PDF rather than the .tex source means LaTeX markup -- entry keys,
+# command names, lengths, arXiv IDs -- never reaches the spell checker and never
+# needs a dict/words entry. dict/words then holds domain vocabulary only.
+#
+# Usage: cicd/spelling.sh <file.pdf>
 
-# Find all .tex files in current directory and subdirectories
-tex_files=$(find . -type f -name "*.tex")
+set -euo pipefail
 
-# Check if any .tex files are found
-if [ -z "$tex_files" ]; then
-  echo "No .tex files found."
-  exit 0
-fi
+PDF="${1:?usage: cicd/spelling.sh <file.pdf>}"
 
-# Variable to track if any spelling errors are found
-errors_found=0
-
-# Get the dict paths
-# dic_path=$(hunspell -d en_GB -D 2>&1 | grep -o '/.*GB\.dic' | head -n 1)
-# echo $dic_path
-# if [ -z "$dic_path" ]; then
-#     echo "No dictionary file found!"
-#     exit 1
-# fi
-
-# # Some words need to be appended by hand
-# echo Ph >> $dic_path
-
-# Loop through each .tex file
-for file in $tex_files; do
-  echo -e "\nChecking spelling for file: $file"
-  # Spell checker with hunspell
-  # -d en_GB: British English
-  # -t: TeX mode
-  # -a: Morphological analysis
-  # -l: List only misspelled words
-  # -d dict/words: Adds custom dictionary located in dict/words
-  hunspellOutput="$(hunspell -d en_GB -t -a -l -p dict/words $file)"
-  hunspellOutput=$(echo "$hunspellOutput" | grep -v "\bPh\b")
-  echo ${hunspellOutput}
-
-  if [ "${hunspellOutput}" != "" ]; then
-    # Spelling errors
-    echo ""
-    echo "======================================================"
-    echo "There are spelling errors listed below in file: $file."
-    echo "Either fix, or add to \"dict/words\""
-    echo "======================================================"
-    echo ""
-    #hunspell -d en_GB -t -a -l -p dict/words $file
-
-    # Check unwanted words
-    echo "$hunspellOutput" | tr ' ' '\n' | sort | uniq
-    errors_found=1
-  else
-    echo "Spelling looks good to me in $file"
-
-  fi
-done
-
-# Exit with an error if any spelling mistakes were found
-if [ $errors_found -eq 1 ]; then
-  echo "Spelling errors were found in one or more files. Exiting with error."
+if [ ! -f "${PDF}" ]; then
+  echo "No such file: ${PDF}"
   exit 1
-else
-  echo "All .tex files look good. No spelling errors found."
-  exit 0
 fi
+
+TEXT=$(pdftotext -nopgbrk "${PDF}" -)
+
+# \TODO placeholders render the literal string into the PDF.
+if grep -q "TODO" <<<"${TEXT}"; then
+  echo "Unresolved \\TODO placeholder in ${PDF}:"
+  grep -n "TODO" <<<"${TEXT}"
+  exit 1
+fi
+
+# Strip what renders as visible text but is not prose: emails, URLs, arXiv IDs.
+# Then drop tokens under three characters -- "Ph" (from Ph.D.) and "st" (from
+# the 31$^{st}$ superscript) survive tokenisation but carry no signal.
+errors=$(sed -E 's#[^ ]+@[^ ]+# #g;
+                 s#(https?://|www\.)[^ ]+# #g;
+                 s#[A-Za-z0-9.-]+\.(com|org|net|io|uk)# #g;
+                 s#arXiv:[^ ]+# #g' <<<"${TEXT}" \
+  | hunspell -d en_GB -l -p dict/words \
+  | awk 'length($0) >= 3' \
+  | sort -u)
+
+if [ -n "${errors}" ]; then
+  echo ""
+  echo "======================================================"
+  echo "Spelling errors in ${PDF}."
+  echo "Either fix, or add to \"dict/words\""
+  echo "======================================================"
+  echo ""
+  echo "${errors}"
+  exit 1
+fi
+
+echo "No spelling errors in ${PDF}."

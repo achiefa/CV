@@ -45,8 +45,11 @@
 \renewcommand{\eduentry}[7]{%
   \item[] \headerrow{\textbf{#1}, #4}{\IfStrEq{#7}{}{#3}{#7}\IfStrEq{#2}{}{}{ — #2}}}
 
-% Individual talks are summarised in prose in this variant, not listed.
-\renewcommand{\talkentry}[4]{}
+% As in the academic variant: linked title with the date aligned right, event
+% beneath. Aligning the date on its own row keeps the column straight when a
+% title or event wraps.
+\renewcommand{\talkentry}[4]{%
+  \item[] \headerline{\href{#2}{\textbf{#1}}}{#3}{\small #4}}
 
 \renewcommand{\awardentry}[3]{\item[] \textbf{#1} (#2)}
 
