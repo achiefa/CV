@@ -1,0 +1,110 @@
+% ============================================================================
+%  QUANTITATIVE FINANCE / DATA SCIENCE CV
+%
+%  Same content database as the academic CV; different selection, order,
+%  register and visual style.
+%  Build:  latexmk -pdf main-quant.tex
+% ============================================================================
+\documentclass[10pt,a4paper]{article}
+\usepackage{style/cvkit}
+\usepackage{style/variant-quant}
+
+\input{content/publications}
+\input{content/experience}
+\input{content/education}
+\input{content/talks}
+\input{content/awards}
+\input{content/skills}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{\sffamily Amedeo Chiefa}} \\[0.12cm]
+    {\normalsize Ph.D. candidate, Theoretical Physics \& Machine Learning — University of Edinburgh} \\
+    \vspace{0.15cm}
+    \small
+    \cvemaillink{} |
+    \cvgithub{} |
+    \cvlinkedin{} |
+    Edinburgh, UK 
+    \normalsize
+\end{center}
+
+\cvsection{Profile}
+\begin{cvlist}
+  \item[] Theoretical physicist completing a Ph.D. (2027) on the modelling of
+          large, noisy collider datasets with correlated uncertainties. I work
+          on problems where off-the-shelf methods do not exist and theory
+          constrains only part of the structure, with the rest determined
+          empirically: numerical experiment, closure testing, and establishing
+          whether the uncertainties a fitted model reports can be trusted. Six
+          peer-reviewed publications; production Python and C++ in two
+          international collaborations. Looking to bring that pairing of
+          principled modelling and empirical judgement to systematic research in
+          quantitative finance.
+\end{cvlist}
+
+\cvsection{Technical Skills}
+\begin{cvlist}
+  \useskill{prog-industry}
+  \useskill{ml-industry}
+  \useskill{methods-industry}
+  \useskill{eng-industry}
+  \useskill{other}
+\end{cvlist}
+
+\cvsection{Research \& Engineering Experience}
+\begin{cvlist}
+  \usexp{phd}{industry}
+  \usexp{nnpdf}{industry}
+  \usexp{map}{industry}
+  \usexp{cea}{industry}
+\end{cvlist}
+
+\cvsection{Education}
+\begin{cvlist}
+  \useedu{phd}
+  \useedu{msc}
+  \useedu{bsc}
+\end{cvlist}
+
+\cvsection{Selected Publications}
+\begin{cvlist}
+  \item[] \small Six peer-reviewed publications since 2024;
+  two further papers in preparation. Author lists follow the alphabetical convention standard
+  in this field. Full list available on \inspirehep\ and
+  \googlescholar.\normalsize
+  \usepub{ntk}
+  \usepub{twist}
+  \usepub{runii}
+  \usepub{helicity}
+\end{cvlist}
+
+\cvsection{Conference Contributions \& Invited Talks}
+\begin{cvlist}
+  \usetalk{ntk-twins}
+  \usetalk{ntk-cometa}
+  \usetalk{dis2024}
+\end{cvlist}
+
+\cvsection{Additional Training}
+\begin{cvlist}
+  \useaward{iliad} Month-long selective taught course in graduate-level applied mathematics for AI alignment research.
+  \useaward{aiforscience} Applications of AI in scientific research; sponsored by Google DeepMind and the Hellenic
+   Institute of Advanced Studies.
+\end{cvlist}
+
+\cvsection{Additional}
+\begin{cvlist}
+  \item[] \textbf{Teaching:} Teaching Assistant in Statistical Physics, Quantum Mechanics and Computer
+    Simulation, University of Edinburgh (2023--2026) — undergraduate students.
+  \item[] \textbf{Languages:} Italian (native); English (full professional
+  proficiency); French (basic).
+\end{cvlist}
+
+\vfill\hrule
+\begin{description}\item
+  \headerrow{{\textsubscript{Written in {\LaTeX} and generated using GitHub actions.}}}
+            {{\textsubscript{@@version@@}}}
+\end{description}
+\end{document}

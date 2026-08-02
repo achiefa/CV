@@ -1,0 +1,44 @@
+% ============================================================================
+%  variant-postdoc.sty -- the ACADEMIC look, and the academic renderers.
+%  Owns its own geometry, fonts, section headings and spacing.
+%  Classic serif, ruled section headings, generous author lists.
+% ============================================================================
+\ProvidesPackage{style/variant-postdoc}[2026/07/30 Academic variant]
+
+\RequirePackage[a4paper,margin=0.55in]{geometry}
+\RequirePackage{titlesec}
+
+% ------------------------------------------------------------------ look --
+\titleformat{\subsection}[block]{\large\bfseries}{}{0em}{}%
+  [\vspace{-0.55em}\rule{\linewidth}{0.6pt}]
+\titlespacing*{\subsection}{0pt}{0.7em}{0.25em}
+\newcommand{\cvsection}[1]{\subsection*{#1}}
+\setlist[itemize]{itemsep=0.2em, topsep=0.25em, parsep=0em}
+\newenvironment{cvlist}{\begin{itemize}[leftmargin=1em]}{\end{itemize}}
+\newenvironment{cvsub}{\begin{itemize}[leftmargin=1.2em,label=--,topsep=0.15em]}{\end{itemize}}
+
+% ------------------------------------------------------------- renderers --
+% Full author lists, journal reference, thesis titles, every talk spelled out.
+\renewcommand{\pubentry}[5]{%
+  \item[] \textbf{#1}\IfStrEq{#5}{}{}{~$\dagger$}\\ #2 \\
+  #3\IfStrEq{#4}{}{}{ | e-Print: \arxiv{#4}}}
+
+\renewcommand{\expentry}[4]{%
+  \item[] \headerline{\textbf{#1} — #2}{#3}#4}
+
+% {degree}{grade}{dates}{institution}{supervisor}{detail}{short date}
+% #7 ignored: the academic convention is the full date.
+\renewcommand{\eduentry}[7]{%
+  \item[] \headerline{\textbf{#1}\IfStrEq{#2}{}{}{ (#2)}}{#3}%
+  #4\IfStrEq{#5}{}{}{ — Supervisor: #5} \\ #6}
+
+\renewcommand{\talkentry}[4]{%
+  \item[] \headerline{\href{#2}{\textbf{#1}}}{#3}#4}
+
+\renewcommand{\awardentry}[3]{%
+  \item[] \headerline{\textbf{#1}}{#2}#3}
+
+\renewcommand{\skillentry}[2]{\item[] \textbf{#1:} #2}
+
+\cvloadhyperref
+\endinput

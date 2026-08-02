@@ -1,20 +1,48 @@
 <!DOCTYPE HTML>
 <html lang="en-GB">
     <head>
-        <meta charset="UTF-8">      
-        
-        <!--You can add your name and affiliation below to personalise -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <meta property="og:title" content="Amedeo Chiefa - CV"/>
-        
-        <!--You can add your keywords to personalise-->
         <meta property="og:description" content="Amedeo Chiefa's CV"/>
-        
         <meta property="og:image" content="https://dummyimage.com/100x100/000/fff&text=CV" />
         <title>Amedeo Chiefa - CV</title>
+
+        <style>
+            body {
+                font-family: system-ui, sans-serif;
+                max-width: 32rem;
+                margin: 4rem auto;
+                padding: 0 1.5rem;
+                line-height: 1.6;
+            }
+            h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+            p.sub { color: #666; margin-top: 0; }
+            ul { list-style: none; padding: 0; }
+            li { margin: 0.75rem 0; }
+            a { color: #0645ad; text-decoration: none; font-weight: 600; }
+            a:hover { text-decoration: underline; }
+            span.desc { display: block; color: #666; font-weight: 400; font-size: 0.9rem; }
+            @media (prefers-color-scheme: dark) {
+                body { background: #111; color: #eee; }
+                p.sub, span.desc { color: #aaa; }
+                a { color: #7aa7ff; }
+            }
+        </style>
     </head>
     <body>
-    <script type="text/javascript">
-        window.location.href = "./main.pdf"
-    </script>
+        <h1>Amedeo Chiefa &mdash; CV</h1>
+        <p class="sub">Two versions, same facts, different audiences.</p>
+        <ul>
+            <li>
+                <a href="./main-quant.pdf">Industry / quantitative research</a>
+                <span class="desc">Modelling, statistics and scientific computing.</span>
+            </li>
+            <li>
+                <a href="./main-postdoc.pdf">Academic / postdoctoral</a>
+                <span class="desc">Publications, talks and research record.</span>
+            </li>
+        </ul>
     </body>
 </html>

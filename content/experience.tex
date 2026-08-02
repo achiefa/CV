@@ -1,0 +1,64 @@
+% ===========================================================================
+%  Experience database. Definitions only.
+%  \definexp{key}{organisation}{role}{dates}   -- the facts, stated once
+%  \xpdesc{key}{register}{prose}               -- one per tone of voice
+%  Cite with \usexp{key}{register}. Registers are tones, not CV variants:
+%  add a new one freely without touching any driver that does not use it.
+% ===========================================================================
+
+\definexp{phd}{University of Edinburgh}{Doctoral Researcher}{11/2023 -- present}
+\xpdesc{phd}{industry}{%
+  Foundational work on the training dynamics of neural networks used for
+  high-dimensional model fitting to noisy experimental data in the context of
+  the NNPDF methodology: a typical fit carries $\sim$600 free parameters
+  constrained by $\sim$5,000 correlated measurements, with experimental
+  uncertainties propagated by Monte Carlo bootstrap over $\sim$100 replicas.
+  Developed a theoretical framework based on the neural tangent kernel that
+  gives a quantitative account of how such fits behave, and that tests whether
+  the uncertainties they report are statistically faithful (\textit{EPJC 86,
+  722}). Supervised by Prof. Luigi Del Debbio.}
+
+\definexp{nnpdf}{\href{https://nnpdf.mi.infn.it}{NNPDF Collaboration}}{Member and Developer}{since 11/2023}
+\xpdesc{nnpdf}{academic}{%
+  Contribute to the maintenance and development of the NNPDF fitting codebase, a production
+  Python framework used collaboration-wide to determine the parton distribution functions
+  of the proton.}
+\xpdesc{nnpdf}{industry}{%
+  NNPDF is an international collaboration that combines experimental data and
+  machine learning to extract the parton distribution functions that encode the
+  internal structure of the proton. I maintain and extend the production Python
+  codebase used collaboration-wide for large-scale model fitting: code review,
+  CI, and release process with a citable
+  \href{https://doi.org/10.5281/zenodo.5362228}{DOI}. Extended the framework to
+  account for theoretical uncertainties from power corrections through a
+  Bayesian treatment of the data (\textit{EPJC 86, 281}), producing a new tool
+  included in the forthcoming NNPDF4.1 release. Delivered within a distributed
+  team of 20+ international researchers, with regular group meetings, internal
+  presentations, and mentoring of new members. Benchmarked model sets from
+  several independent groups, ours included, against out of sample measurements
+  (\textit{JHEP 07, 067}).}
+
+\definexp{map}{\href{https://github.com/MapCollaboration}{MAP Collaboration}}{Developer}{since 03/2023}
+\xpdesc{map}{academic}{%
+  Co-developed the codebase
+  \href{https://github.com/MapCollaboration/Denali}{Denali} that extended the
+  MAP analysis framework to polarised parton distribution functions; currently
+  extending it to higher-order theoretical accuracy.} 
+  \xpdesc{map}{industry}{%
+  Co-designed and built
+  \href{https://github.com/MapCollaboration/Denali}{Denali}, an open-source C++
+  fitting library (Ceres non-linear least squares, automatic differentiation of
+  network parameters) implementing the same bootstrap procedure with
+  train/validation splitting. Released with a citable
+  \href{https://doi.org/10.5281/zenodo.10933176}{DOI}; now extending it to
+  higher theoretical accuracy.}
+
+\definexp{cea}{CEA Paris-Saclay, IRFU (France)}{Erasmus+ Traineeship}{03/2023 -- 05/2023}
+\xpdesc{cea}{academic}{%
+  Supervisor: Dr Valerio Bertone. Determination of the polarised parton distribution functions
+  of the proton at NNLO within the MAP framework. Competitively funded by the European Commission.}
+\xpdesc{cea}{industry}{%
+  Competitively funded by the European Commission. Statistical extraction of
+  model parameters from global datasets at unprecedented theoretical accuracy;
+  development of \href{https://github.com/MapCollaboration/Denali}{Denali} (PLB
+  865); supervisor Dr Valerio Bertone.}

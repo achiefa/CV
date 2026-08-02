@@ -1,0 +1,149 @@
+% ============================================================================
+%  cvkit.sty -- machinery only.
+%
+%  Contains NO content and NO styling. It knows nothing about which CV
+%  variants exist. Its only job is to provide a small keyed record store
+%  (the ".bib" layer) and the \use... commands that hand a record to
+%  whichever renderer the active variant has defined.
+% ============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/cvkit}[2026/07/30 CV content database and helpers]
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{etoolbox}
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
+\RequirePackage{xstring}
+
+% =========================================================== record store ==
+% Fields are stored as \cv@<namespace>@<key>@<field>.
+\newcommand{\cvfieldset}[4]{\csdef{cv@#1@#2@#3}{#4}}
+\newcommand{\cvfieldget}[3]{%
+  \ifcsdef{cv@#1@#2@#3}{\csuse{cv@#1@#2@#3}}{%
+    \PackageError{cvkit}{No field '#3' for #1 entry '#2'}{Check the key spelling.}}}
+% Like \cvfieldget but silently empty when the field was never set.
+\newcommand{\cvfieldopt}[3]{\ifcsdef{cv@#1@#2@#3}{\csuse{cv@#1@#2@#3}}{}}
+\newcommand{\cv@require}[3]{%
+  \ifcsdef{cv@#1@#2@#3}{}{%
+    \PackageError{cvkit}{No #1 entry with key '#2'}%
+      {Defined in content/? Check the key spelling.}}}
+
+% ============================================================ definitions ==
+% Content files call these. They produce no output.
+
+% \definepub{key}{title}{authors}{venue}{arxiv-id}   (arxiv may be empty)
+\newcommand{\definepub}[5]{%
+  \cvfieldset{pub}{#1}{title}{#2}\cvfieldset{pub}{#1}{authors}{#3}%
+  \cvfieldset{pub}{#1}{venue}{#4}\cvfieldset{pub}{#1}{arxiv}{#5}}
+
+% \publead{key}  -- mark a publication as one whose analysis you led.
+% Renderers decide whether to show it, so the marker cannot leak into a
+% variant that prints no legend explaining it.
+\newcommand{\publead}[1]{\cvfieldset{pub}{#1}{lead}{1}}
+
+% \definexp{key}{organisation}{role}{dates}
+% \xpdesc{key}{register}{prose}     -- as many registers as you like
+\newcommand{\definexp}[4]{%
+  \cvfieldset{xp}{#1}{org}{#2}\cvfieldset{xp}{#1}{role}{#3}\cvfieldset{xp}{#1}{dates}{#4}}
+\newcommand{\xpdesc}[3]{\cvfieldset{xp}{#1}{desc.#2}{#3}}
+
+% \defineedu{key}{degree}{grade}{dates}{institution}{supervisor}{detail}
+\newcommand{\defineedu}[7]{%
+  \cvfieldset{edu}{#1}{degree}{#2}\cvfieldset{edu}{#1}{grade}{#3}%
+  \cvfieldset{edu}{#1}{dates}{#4}\cvfieldset{edu}{#1}{institution}{#5}%
+  \cvfieldset{edu}{#1}{supervisor}{#6}\cvfieldset{edu}{#1}{detail}{#7}}
+
+% \edushort{key}{short form}  -- optional compact date, e.g. "2023".
+% Renderers choose; the academic one keeps the full date.
+\newcommand{\edushort}[2]{\cvfieldset{edu}{#1}{short}{#2}}
+
+% \definetalk{key}{title}{url}{date}{event}
+\newcommand{\definetalk}[5]{%
+  \cvfieldset{talk}{#1}{title}{#2}\cvfieldset{talk}{#1}{url}{#3}%
+  \cvfieldset{talk}{#1}{date}{#4}\cvfieldset{talk}{#1}{event}{#5}}
+
+% \defineaward{key}{name}{dates}{description}
+\newcommand{\defineaward}[4]{%
+  \cvfieldset{award}{#1}{name}{#2}\cvfieldset{award}{#1}{dates}{#3}%
+  \cvfieldset{award}{#1}{desc}{#4}}
+
+% \defineskill{key}{label}{body}
+\newcommand{\defineskill}[3]{%
+  \cvfieldset{skill}{#1}{label}{#2}\cvfieldset{skill}{#1}{body}{#3}}
+
+% ================================================================ citation ==
+% Drivers call these, in whatever order and selection they want.
+\newcommand{\usepub}[1]{\cv@require{pub}{#1}{title}%
+  \pubentry{\cvfieldget{pub}{#1}{title}}{\cvfieldget{pub}{#1}{authors}}%
+           {\cvfieldget{pub}{#1}{venue}}{\cvfieldget{pub}{#1}{arxiv}}%
+           {\cvfieldopt{pub}{#1}{lead}}}
+
+% \usexp{key}{register}
+\newcommand{\usexp}[2]{\cv@require{xp}{#1}{org}%
+  \ifcsdef{cv@xp@#1@desc.#2}{}{%
+    \PackageError{cvkit}{Experience '#1' has no '#2' description}%
+      {Add \string\xpdesc{#1}{#2}{...} in content/experience.tex.}}%
+  \expentry{\cvfieldget{xp}{#1}{org}}{\cvfieldget{xp}{#1}{role}}%
+           {\cvfieldget{xp}{#1}{dates}}{\cvfieldget{xp}{#1}{desc.#2}}}
+
+\newcommand{\useedu}[1]{\cv@require{edu}{#1}{degree}%
+  \eduentry{\cvfieldget{edu}{#1}{degree}}{\cvfieldget{edu}{#1}{grade}}%
+           {\cvfieldget{edu}{#1}{dates}}{\cvfieldget{edu}{#1}{institution}}%
+           {\cvfieldget{edu}{#1}{supervisor}}{\cvfieldget{edu}{#1}{detail}}%
+           {\cvfieldopt{edu}{#1}{short}}}
+
+\newcommand{\usetalk}[1]{\cv@require{talk}{#1}{title}%
+  \talkentry{\cvfieldget{talk}{#1}{title}}{\cvfieldget{talk}{#1}{url}}%
+            {\cvfieldget{talk}{#1}{date}}{\cvfieldget{talk}{#1}{event}}}
+
+\newcommand{\useaward}[1]{\cv@require{award}{#1}{name}%
+  \awardentry{\cvfieldget{award}{#1}{name}}{\cvfieldget{award}{#1}{dates}}%
+             {\cvfieldget{award}{#1}{desc}}}
+
+\newcommand{\useskill}[1]{\cv@require{skill}{#1}{label}%
+  \skillentry{\cvfieldget{skill}{#1}{label}}{\cvfieldget{skill}{#1}{body}}}
+
+% ================================================== renderer contract ======
+% Every style/variant-*.sty MUST define these. Erroring by default means a
+% missing renderer fails the build instead of silently dropping content.
+\newcommand{\cv@nodef}[1]{\PackageError{cvkit}{\string#1\space not defined by this variant}{}}
+\newcommand{\pubentry}[5]{\cv@nodef{\pubentry}}
+\newcommand{\expentry}[4]{\cv@nodef{\expentry}}
+\newcommand{\eduentry}[7]{\cv@nodef{\eduentry}}
+\newcommand{\talkentry}[4]{\cv@nodef{\talkentry}}
+\newcommand{\awardentry}[3]{\cv@nodef{\awardentry}}
+\newcommand{\skillentry}[2]{\cv@nodef{\skillentry}}
+
+% ====================================================== personal details ==
+% Change these in one place; every driver picks the change up.
+\newcommand{\cvemail}{amedeo.chiefa@ed.ac.uk}
+\newcommand{\cvemaillink}{\href{mailto:\cvemail}{\cvemail}}
+\newcommand{\cvgithub}{\href{https://github.com/achiefa}{github.com/achiefa}}
+\newcommand{\cvlinkedin}{\href{https://www.linkedin.com/in/amedeo-chiefa-b6a6bb231/}{LinkedIn}}
+\newcommand{\inspirehep}{\href{https://inspirehep.net/authors/2968919?ui-citation-summary=true}{InspireHEP}}
+\newcommand{\googlescholar}{\href{https://scholar.google.com/citations?hl=en&user=4xSMMIQAAAAJ}{Google Scholar}}
+\newcommand{\cvorcid}{\href{https://orcid.org/0009-0000-3799-0499}{ORCID: 0009-0000-3799-0499}}
+
+% ================================================================ helpers ==
+\newcommand{\me}{\textbf{A. Chiefa}}
+\newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{arXiv:#1}}
+% Placeholder marker. Run `grep -rn TODO content/ *.tex` before sending out.
+\newcommand{\TODO}[1]{{\color{red}\textbf{[TODO: #1]}}}
+\newcommand{\headerrow}[2]{%
+  \begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}#1 & #2 \\\end{tabular*}}
+% Same, but ends the paragraph so body text that follows starts on a new line.
+% Renderers should use this whenever a description follows the header.
+\newcommand{\headerline}[2]{\headerrow{#1}{#2}\par\nobreak}
+
+\pagestyle{empty}
+\setlength{\tabcolsep}{0em}
+
+% Loaded last by the variant file, after it has set fonts and geometry.
+\newcommand{\cvloadhyperref}{%
+  \RequirePackage{hyperref}%
+  \hypersetup{linkcolor=blue, filecolor=magenta, urlcolor=cyan,
+    pdfauthor={Amedeo Chiefa}, pdftitle={Amedeo Chiefa - Curriculum Vitae},
+    pdfsubject={Work History and Experience of Amedeo Chiefa},
+    pdfkeywords={CV, Résumé, Work History, Amedeo Chiefa}}}
+\endinput
